@@ -60,7 +60,7 @@ conn = init_connection()
 def run_query(query):
     with conn.cursor() as cur:
         cur.execute(query)
-        return cur.fetchone()
+        return cur.fetchall()
 
 #rows = run_query("select current_user(), current_account(), current_region();")
 rows = run_query("select * from fruit_load_list;")
