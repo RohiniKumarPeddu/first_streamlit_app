@@ -2,6 +2,7 @@ import streamlit as st
 import pandas
 import requests
 import snowflake.connector
+from urllib.error import URLError
 
 st.title("My first streamlit App")
 
@@ -44,6 +45,8 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # display normalized data
 st.dataframe(fruityvice_normalized)
 
+# snowflake section
+
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
 @st.experimental_singleton
@@ -64,6 +67,8 @@ def run_query(query):
 
 #rows = run_query("select current_user(), current_account(), current_region();")
 rows = run_query("select * from fruit_load_list;")
+
+st.stop()
 
 st.header("Hello from Snowflake:")
 st.header("The Fruit Load List:")
