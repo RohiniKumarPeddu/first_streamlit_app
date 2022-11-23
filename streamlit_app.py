@@ -1,4 +1,4 @@
-import streamlit
+import streamlit as st
 import pandas
 import requests
 import snowflake.connector
@@ -44,10 +44,25 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # display normalized data
 streamlit.dataframe(fruityvice_normalized)
 
+# Initialize connection.
+# Uses st.experimental_singleton to only run once.
+@st.experimental_singleton
+def init_connection():
+    return snowflake.connector.connect(
+        **st.secrets["snowflake"], client_session_keep_alive=True
+    )
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cusrsor()
-my_cur.execute("select current_user(), current_account(), current_region()")
-my_data_row = my_cur.fetchone()
+conn = init_connection()
+
+# Perform query.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchone()
+
+rows = run_query("select current_user(), current_account(), current_region();")
+
 streamlit.text("Hello from Snowflake!!!:")
-streamlit.text(my_data_row)
+streamlit.text(rows)
