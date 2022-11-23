@@ -33,8 +33,8 @@ st.dataframe(fruits_to_show)
 st.header("Fruityvice Fruit Advice!")
 
 try:
-# add a text entry box and send the input to fruityvice as part of the API call
-fruit_choice = st.text_input("What fruit would you like information about?")
+    # add a text entry box and send the input to fruityvice as part of the API call
+    fruit_choice = st.text_input("What fruit would you like information about?")
 
     if not fruit_choice:
         st.error("Please select a fruit to get the information.")
