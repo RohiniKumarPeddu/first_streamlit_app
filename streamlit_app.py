@@ -73,4 +73,4 @@ st.dataframe(rows)
 fruit_to_add = st.text_input("Which fruit would you like add?")
 st.write("Thank you for adding", fruit_to_add)
 
-add_fruit = run_query("insert into fruit_load_list values (fruit_to_add);")
+add_fruit = run_query("insert into fruit_load_list values ('fruit_to_add');")
