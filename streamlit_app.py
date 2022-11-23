@@ -62,7 +62,8 @@ def run_query(query):
         cur.execute(query)
         return cur.fetchone()
 
-rows = run_query("select current_user(), current_account(), current_region();")
+#rows = run_query("select current_user(), current_account(), current_region();")
+rows = run_query("select * from fruit_load_list;")
 
-st.text("Hello from Snowflake!!!:")
+st.text("Hello from Snowflake: The Fruit Load List:")
 st.text(rows)
