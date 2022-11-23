@@ -32,19 +32,24 @@ st.dataframe(fruits_to_show)
 # header for fruityvice API response
 st.header("Fruityvice Fruit Advice!")
 
-# add a text entry box and send the input to fruityvice as part of the API call
-fruit_choice = st.text_input("What fruit would you like information about?", "kiwi")
-st.write("The user entered", fruit_choice)
+try:
+    # add a text entry box and send the input to fruityvice as part of the API call
+    fruit_choice = st.text_input("What fruit would you like information about?")
+    if not fruit_choice:
+        st.error("Please select a fruit to get the information.")
+     else:
+        st.write("The user entered", fruit_choice)
+        # display fruitvice api resonse
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+        #st.text(fruityvice_response.json())
 
-# display fruitvice api resonse
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-#st.text(fruityvice_response.json())
-
-# normalize the json data
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# display normalized data
-st.dataframe(fruityvice_normalized)
-
+        # normalize the json data
+        fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+        # display normalized data
+        st.dataframe(fruityvice_normalized)
+    except URLError as e:
+        st.error()
+        
 # snowflake section
 
 # Initialize connection.
