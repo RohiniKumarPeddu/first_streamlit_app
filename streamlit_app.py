@@ -22,7 +22,7 @@ my_fruit_list = my_fruit_list.set_index("Fruit")
 st.dataframe(my_fruit_list)
 
 # create a pick list for user to pick one or more fruits
-fruits_selected = streamlit.multiselect("Pick some fruits: ", list(my_fruit_list.index), ["Avocado", "Strawberries"])
+fruits_selected = st.multiselect("Pick some fruits: ", list(my_fruit_list.index), ["Avocado", "Strawberries"])
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 # display the selected list
