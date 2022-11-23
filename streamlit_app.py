@@ -41,7 +41,7 @@ try:
     else:
         st.write("The user entered", fruit_choice)
         # display fruitvice api resonse
-        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
         #st.text(fruityvice_response.json())
 
         # normalize the json data
@@ -85,4 +85,4 @@ st.dataframe(rows)
 fruit_to_add = st.text_input("Which fruit would you like add?")
 st.write("Thank you for adding", fruit_to_add)
 
-add_fruit = run_query("insert into fruit_load_list values ('fruit_to_add');")
+add_fruit = run_query("insert into fruit_load_list values (" + fruit_to_add + ");")
