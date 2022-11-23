@@ -70,5 +70,7 @@ st.header("The Fruit Load List:")
 st.dataframe(rows)
 
 # add a text entry box and send the input to fruityvice as part of the API call
-fruit_to_add = st.text_input("Which fruit would you like add?", "kiwi")
+fruit_to_add = st.text_input("Which fruit would you like add?")
 st.write("Thank you for adding", fruit_to_add)
+
+add_fruit = run_query("insert into fruit_load_list values (fruit_to_add);")
