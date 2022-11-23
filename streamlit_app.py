@@ -68,3 +68,7 @@ rows = run_query("select * from fruit_load_list;")
 st.header("Hello from Snowflake:")
 st.header("The Fruit Load List:")
 st.dataframe(rows)
+
+# add a text entry box and send the input to fruityvice as part of the API call
+fruit_to_add = st.text_input("Which fruit would you like add?", "kiwi")
+st.write("Thank you for adding", fruit_to_add)
