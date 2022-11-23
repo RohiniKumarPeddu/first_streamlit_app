@@ -10,6 +10,7 @@ streamlit.text("❄️Snowflake Account")
 streamlit.text("📧GMail Account")
 streamlit.text("GitHub Account")
 streamlit.text("Streamlit Account")
+streamlit.text("Snowflake Connector")
 
 streamlit.header("My Fruits List")
 
