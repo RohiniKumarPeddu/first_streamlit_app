@@ -36,8 +36,7 @@ def get_fruityvice_data(this_fruit_choice):
 
     # normalize the json data
     fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-    # display normalized data
-    
+    # return normalized data
     return fruityvice_normalized
     
 # header for fruityvice API response
@@ -76,8 +75,9 @@ conn = init_connection()
 @st.experimental_memo(ttl=600)
 def run_query(query):
     with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
+        result = cur.execute(query)
+        cur.close()
+        return result
 
 #rows = run_query("select current_user(), current_account(), current_region();")
 #rows = run_query("select * from fruit_load_list;")
