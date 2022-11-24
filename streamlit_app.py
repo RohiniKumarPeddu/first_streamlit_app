@@ -80,14 +80,16 @@ def run_query(query):
         return cur.fetchall()
 
 #rows = run_query("select current_user(), current_account(), current_region();")
-rows = run_query("select * from fruit_load_list;")
+#rows = run_query("select * from fruit_load_list;")
 
 st.header("Hello from Snowflake:")
 st.header("The Fruit Load List:")
 
 # add button to get the fruit list
 if st.button("Get Fruits List"):
+    rows = run_query("select * from fruit_load_list;")
     st.dataframe(rows)
+    cur.close()
 
 # Perform query.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
@@ -106,6 +108,7 @@ st.text("insert into fruit_load_list values ('" + fruit_to_add + "');")
 if st.button("Add Fruit"):
     add_fruit = run_insert("insert into fruit_load_list values ('" + fruit_to_add + "');")
     st.write(add_fruit, fruit_to_add)
+    cur.close()
 
 
 
