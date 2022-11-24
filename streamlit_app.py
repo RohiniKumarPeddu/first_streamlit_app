@@ -89,7 +89,6 @@ st.header("The Fruit Load List:")
 if st.button("Get Fruits List"):
     rows = run_query("select * from fruit_load_list;")
     st.dataframe(rows)
-    cur.close()
 
 # Perform query.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
@@ -108,7 +107,3 @@ st.text("insert into fruit_load_list values ('" + fruit_to_add + "');")
 if st.button("Add Fruit"):
     add_fruit = run_insert("insert into fruit_load_list values ('" + fruit_to_add + "');")
     st.write(add_fruit, fruit_to_add)
-    cur.close()
-
-
-
