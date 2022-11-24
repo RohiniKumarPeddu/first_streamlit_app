@@ -101,10 +101,10 @@ def run_insert(query):
 fruit_to_add = st.text_input("Which fruit would you like add?")
 
 st.text("insert into fruit_load_list values ('" + fruit_to_add + "');")
-st.stop()
+#st.stop()
 
 if st.button("Add Fruit"):
-    add_fruit = run_insert("insert into fruit_load_list values \(" + fruit_to_add + "\);")
+    add_fruit = run_insert("insert into fruit_load_list values ('" + fruit_to_add + "');")
     st.write(add_fruit, fruit_to_add)
 
 
