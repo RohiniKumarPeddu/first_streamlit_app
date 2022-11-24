@@ -100,7 +100,7 @@ def run_insert(query):
 # add a text entry box and send the input to fruityvice as part of the API call
 fruit_to_add = st.text_input("Which fruit would you like add?")
 
-st.text("insert into fruit_load_list values \(" + fruit_to_add + "\);")
+st.text("insert into fruit_load_list values ('" + fruit_to_add + "');")
 st.stop()
 
 if st.button("Add Fruit"):
