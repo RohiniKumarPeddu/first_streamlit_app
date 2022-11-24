@@ -91,7 +91,9 @@ if st.button("Get Fruits List"):
 
 # add a text entry box and send the input to fruityvice as part of the API call
 fruit_to_add = st.text_input("Which fruit would you like add?")
-st.write("Thank you for adding", fruit_to_add)
+
+if fruit_to_add:
+    st.write("Thank you for adding", fruit_to_add)
 
 st.stop()
 
