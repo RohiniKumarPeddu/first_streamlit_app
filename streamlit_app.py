@@ -89,12 +89,21 @@ st.header("The Fruit Load List:")
 if st.button("Get Fruits List"):
     st.dataframe(rows)
 
+# Perform query.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
+def run_insert(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return "Thank you for adding"
+
 # add a text entry box and send the input to fruityvice as part of the API call
 fruit_to_add = st.text_input("Which fruit would you like add?")
 
-if fruit_to_add:
-    st.write("Thank you for adding", fruit_to_add)
+if st.button("Add Fruit"):
+    add_fruit = run_query("insert into fruit_load_list values (" + fruit_to_add + ");")
+    st.write(add_fruit, fruit_to_add)
 
-st.stop()
+#st.stop()
 
-add_fruit = run_query("insert into fruit_load_list values (" + fruit_to_add + ");")
+
