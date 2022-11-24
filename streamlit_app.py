@@ -75,9 +75,8 @@ conn = init_connection()
 @st.experimental_memo(ttl=600)
 def run_query(query):
     with conn.cursor() as cur:
-        result = cur.execute(query)
-        cur.close()
-        return result
+        cur.execute(query)
+        return cur.fetchall()
 
 #rows = run_query("select current_user(), current_account(), current_region();")
 #rows = run_query("select * from fruit_load_list;")
@@ -89,6 +88,7 @@ st.header("The Fruit Load List:")
 if st.button("Get Fruits List"):
     rows = run_query("select * from fruit_load_list;")
     st.dataframe(rows)
+    conn.close()
 
 # Perform query.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
@@ -107,3 +107,4 @@ st.text("insert into fruit_load_list values ('" + fruit_to_add + "');")
 if st.button("Add Fruit"):
     add_fruit = run_insert("insert into fruit_load_list values ('" + fruit_to_add + "');")
     st.write(add_fruit, fruit_to_add)
+    conn.close()
