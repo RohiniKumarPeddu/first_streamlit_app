@@ -83,23 +83,13 @@ rows = run_query("select * from fruit_load_list;")
 st.header("Hello from Snowflake:")
 st.header("The Fruit Load List:")
 
-# add button to get the fruit list
-if st.button("Get Fruits List"):
-    st.dataframe(rows)
+st.dataframe(rows)
 
 # Perform query.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
-@st.experimental_memo(ttl=600)
-def run_insert(query):
-    with conn.cursor() as i_cur:
-        i_cur.execute(query)
-        return "Thank you for adding"
 
 # add a text entry box and send the input to fruityvice as part of the API call
 fruit_to_add = st.text_input("Which fruit would you like add?")
 
-st.text("insert into fruit_load_list values ('" + fruit_to_add + "');")
-
 if st.button("Add Fruit"):
-    add_fruit = run_insert("insert into fruit_load_list values ('" + fruit_to_add + "');")
-    st.write(add_fruit, fruit_to_add)
+    st.text("Than k you for adding" + fruit_to_add + ".")
