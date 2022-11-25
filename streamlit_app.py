@@ -79,14 +79,13 @@ def run_query(query):
         return cur.fetchall()
 
 #rows = run_query("select current_user(), current_account(), current_region();")
-#rows = run_query("select * from fruit_load_list;")
+rows = run_query("select * from fruit_load_list;")
 
 st.header("Hello from Snowflake:")
 st.header("The Fruit Load List:")
 
 # add button to get the fruit list
 if st.button("Get Fruits List"):
-    rows = run_query("select * from fruit_load_list;")
     st.dataframe(rows)
 
 # Perform query.
