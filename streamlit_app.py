@@ -74,9 +74,9 @@ conn = init_connection()
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
 @st.experimental_memo(ttl=600)
 def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
+    with conn.cursor() as q_cur:
+        q_cur.execute(query)
+        return q_cur.fetchall()
     
 rows = run_query("select * from fruit_load_list;")
 
@@ -91,15 +91,14 @@ if st.button("Get Fruits List"):
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
 @st.experimental_memo(ttl=600)
 def run_insert(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
+    with conn.cursor() as i_cur:
+        i_cur.execute(query)
         return "Thank you for adding"
 
 # add a text entry box and send the input to fruityvice as part of the API call
 fruit_to_add = st.text_input("Which fruit would you like add?")
 
 st.text("insert into fruit_load_list values ('" + fruit_to_add + "');")
-#st.stop()
 
 if st.button("Add Fruit"):
     add_fruit = run_insert("insert into fruit_load_list values ('" + fruit_to_add + "');")
