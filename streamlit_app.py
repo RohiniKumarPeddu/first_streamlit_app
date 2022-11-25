@@ -75,7 +75,12 @@ conn = init_connection()
 @st.experimental_memo(ttl=600)
 def run_query(query):
     with conn.cursor() as q_cur:
-        q_cur.execute(query)
+        
+        try:
+            q_cur.execute(query)
+        except URLError as e:
+            st.error()
+        
         return q_cur.fetchall()
     
 rows = run_query("select * from fruit_load_list;")
