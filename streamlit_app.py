@@ -74,14 +74,9 @@ conn = init_connection()
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
 @st.experimental_memo(ttl=600)
 def run_query(query):
-    with conn.cursor() as q_cur:
-        
-        try:
-            q_cur.execute(query)
-        except URLError as e:
-            st.error()
-        
-        return q_cur.fetchall()
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
     
 rows = run_query("select * from fruit_load_list;")
 
